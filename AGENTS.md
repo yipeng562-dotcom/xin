@@ -874,3 +874,155 @@ Codex 必须在第一次产生待同步代码时自动创建。
 确认后更新 docs 快照：
 是否禁止写回 baseline：
 
+
+## Git / GitHub 优先版本管理规则
+
+当前项目已经启用 Git，并且已经推送到 GitHub。
+
+从现在开始：
+
+Git 作为主要版本管理方式。
+GitHub 作为远程备份。
+current_src 作为 Codex 当前源码读取入口。
+backup/baseline_2026-07-08_partial 作为历史老底稿，只读保留。
+
+## Git 与 backup 分工
+
+Git 用于：
+
+- 记录每次有效代码变更
+- 对比修改内容
+- 回退历史版本
+- 推送到 GitHub 做远程备份
+
+current_src 用于：
+
+- Codex 读取当前最新源码
+- Codex 判断代码结构
+- Codex 同步用户确认采用的代码
+
+docs 用于：
+
+- 记录代码快照
+- 记录版本说明
+- 记录项目规则
+- 防止 Codex 靠记忆猜
+
+backup 用于：
+
+- 保留 baseline 历史基线
+- 仅作为额外保险
+- 不再作为主要版本管理方式
+
+## Git 启用后的备份规则调整
+
+如果 Git 工作区是干净的，并且本次只修改 current_src 中的单个模块：
+
+可以不创建 before_ 修改前备份。
+
+如果 current_src 更新后已经成功：
+
+1. 更新对应 docs 代码快照。
+2. 更新 docs/版本记录.md。
+3. 执行 git status 检查改动。
+4. 执行 git add。
+5. 执行 git commit。
+6. 执行 git push 到 GitHub。
+
+git push 成功后：
+
+不强制创建 stable_ 备份。
+
+## 仍然必须创建 backup 的情况
+
+以下情况仍然需要创建 before_ 或 stable_ 备份：
+
+1. Git 工作区不干净。
+2. Git commit 失败。
+3. Git push 失败。
+4. 一次修改多个模块。
+5. 修改任务状态机主流程。
+6. 修改登录主流程。
+7. 修改启动窗口入口、线程、停止逻辑。
+8. 用户明确要求创建备份。
+9. Codex 判断本次修改风险较高。
+
+## baseline 规则不变
+
+backup/baseline_2026-07-08_partial 永久保留。
+
+禁止：
+
+- 修改 baseline
+- 覆盖 baseline
+- 删除 baseline
+- 向 baseline 追加新代码
+- 把 baseline 当成当前源码
+- 把 current_src 写回 baseline
+
+## Git 提交流程规则
+
+每次 current_src 被更新后，必须执行 Git 检查。
+
+流程：
+
+1. git status
+2. git diff
+3. 确认只包含本次相关修改
+4. git add 对应文件
+5. git commit -m "模块：修改原因"
+6. git push
+
+commit 信息格式：
+
+模块：简短说明
+
+例如：
+
+任务模块：同步回想技能教学逻辑
+登录模块：调整验证码处理流程
+启动窗口：更新手动任务入口说明
+
+## GitHub 推送成功后的记录
+
+git push 成功后，必须更新 docs/版本记录.md。
+
+记录：
+
+时间：
+模块：
+修改内容：
+Git commit：
+是否已 push GitHub：
+是否创建 backup：
+是否改动 baseline：否
+
+## 旧 stable_ 强制规则优先级调整
+
+如果前文规则写着“只要 current_src 更新就必须创建 stable_ 备份”，现在以本规则为准。
+
+当前项目已启用 Git/GitHub 后：
+
+普通小改动只需要：
+
+- 更新 current_src
+- 更新 docs 快照
+- 更新 docs/版本记录.md
+- git commit
+- git push
+
+不再强制每次创建 stable_ 备份。
+
+只有高风险修改或 Git 失败时，才创建 stable_ 备份。
+
+## 禁止事项
+
+禁止因为有 Git 就跳过 current_src。
+
+禁止因为有 Git 就跳过 docs 快照。
+
+禁止因为有 Git 就修改 baseline。
+
+禁止未 commit 就认为修改完成。
+
+禁止未 push GitHub 就认为远程备份完成。
