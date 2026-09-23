@@ -1,0 +1,4 @@
+interface:
+  display_name: "64DBG 调试助手"
+  short_description: "使用本机64DBG采集与分析64位调试现场、查询引用并诊断接收链路"
+  default_prompt: "使用 $x64dbg-context 帮我检查64DBG接收状态，并分析当前64位调试现场。"
