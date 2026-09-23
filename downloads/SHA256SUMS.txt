@@ -1,0 +1,2 @@
+b0967cbf048a2ca690f39e28ab1baa88037c637525a1a92fc4a481788636fc68  downloads/x32/SnapshotAssistant.exe
+a87a24d46f013c72e6f2b2afb078eeba3a841d1ef39b2bff9210aaf4e9a32ac5  downloads/x64/SnapshotAssistant64.exe

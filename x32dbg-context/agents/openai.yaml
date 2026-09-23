@@ -1,4 +1,4 @@
 interface:
   display_name: "32DBG 调试助手"
-  short_description: "使用SnapshotAssistant分析32位调试现场、查询引用与排查接收问题"
-  default_prompt: "使用 $x32dbg-context 检查SnapshotAssistant接收状态并分析当前32位调试现场。"
+  short_description: "直接读取新版接收器导出的32位调试现场，分析CPU、浏览位置和引用"
+  default_prompt: "使用 $x32dbg-context 直接读取并分析当前32位调试现场。"

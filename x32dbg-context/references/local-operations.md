@@ -1,5 +1,7 @@
 # 本机操作参考
 
+新版直接读取功能及新版程序路径优先见 [live-export.md](live-export.md)。以下保留原版工具和原项目的操作信息。
+
 ## 路径与配套关系
 
 - 用户程序：`E:\SnapshotAssistant.exe`
